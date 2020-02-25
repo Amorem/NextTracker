@@ -1,5 +1,5 @@
 import { ApolloServer, gql } from "apollo-server-micro";
-import "../../lib/mongoose";
+import connectDb from "../../lib/mongoose";
 
 const typeDefs = gql`
   type Query {
@@ -26,6 +26,8 @@ export const config = {
   }
 };
 
-export default apolloServer.createHandler({
+const server = apolloServer.createHandler({
   path: "/api/graphql"
 });
+
+export default connectDb(server);
